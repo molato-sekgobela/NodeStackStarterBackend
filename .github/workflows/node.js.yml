@@ -47,7 +47,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i /tmp/my-key.pem ubuntu@54.152.102.100 << 'EOF'
           cd /home/ubuntu/NodeStackStarterBackend &&
           git pull origin master &&
-          npm install &&
+          sudo apt install npm &&
           pm2 restart server.js
         EOF
 
