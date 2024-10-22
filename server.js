@@ -23,11 +23,11 @@ app.use(express.json()); //parse JSON request bodies
 //Sample API Endpoint
 
 app.get('/api/data', (req, res) =>{
-    res.json({ message: "Hello from backend!"});
+    res.json({ message: "Hello from AWS backend!"});
 });
 
 app.get('/api/', (req, res) =>{
-    res.json({ message: "Hello Melsoft Academy"});
+    res.json({ message: "Hello AWS"});
 });
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost: ${PORT}`);
