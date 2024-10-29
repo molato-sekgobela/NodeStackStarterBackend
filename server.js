@@ -1,35 +1,20 @@
-//import required modules
+const express = require('express');
+const sequelize = require('./config/database');
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
+const passwordRoutes = require('./routes/password');
 
-const express = require('express')
-const cors = require('cors')
-const dotenv = require('dotenv')
-
-
-// load environemnt variables from .env file
-dotenv.config();
-
-
-// create Express application 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(express.json());
 
-//middleware
+// Route setup
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/password', passwordRoutes);
 
-app.use(cors()); //Enables CORS
-app.use(express.json()); //parse JSON request bodies
-
-
-
-//Sample API Endpoint
-
-app.get('/api/data', (req, res) =>{
-    res.json({ message: "Hello from AWS backend!"});
-});
-
-app.get('/api/', (req, res) =>{
-    res.json({ message: "Hello AWS"});
-});
-app.listen(PORT,()=>{
-    console.log(`Server is running on http://localhost: ${PORT}`);
-});
-
+// Database sync and server start
+sequelize.sync().then(() => {
+  app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+  });
+}).catch((err) => console.error('Database connection failed:', err));
