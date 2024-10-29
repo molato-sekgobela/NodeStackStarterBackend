@@ -14,7 +14,7 @@ app.use('/password', passwordRoutes);
 
 // Database sync and server start
 sequelize.sync().then(() => {
-  app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+  app.listen(5432, () => {
+    console.log('Server running on http://localhost:5432');
   });
 }).catch((err) => console.error('Database connection failed:', err));
