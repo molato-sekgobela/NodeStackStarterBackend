@@ -20,6 +20,26 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/password', passwordRoutes);
 
+// Health check endpoint
+app.get('/health', async (req, res) => {
+  try {
+    // Check database connection
+    await sequelize.authenticate();
+    res.status(200).json({ 
+      label: 'health-check', 
+      status: 'UP', 
+      database: 'Connected' 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      label: 'health-check', 
+      status: 'DOWN', 
+      database: 'Disconnected', 
+      error: error.message 
+    });
+  }
+});
+
 // Database sync and server start
 sequelize.sync().then(() => {
   app.listen(3000, () => {
